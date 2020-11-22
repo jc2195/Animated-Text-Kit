@@ -78,6 +78,11 @@ class TypewriterAnimatedTextKit extends StatefulWidget {
   /// By default it is set to false.
   final bool stopPauseOnTap;
 
+  /// Sets how many times the underscore flashes at the end of the animation.
+  /// 
+  /// By default is set to 3.
+  final int underscoreFlashes;
+
   TypewriterAnimatedTextKit({
     Key key,
     @required this.text,
@@ -95,6 +100,7 @@ class TypewriterAnimatedTextKit extends StatefulWidget {
     this.textAlign = TextAlign.start,
     this.repeatForever = false,
     this.isRepeatingAnimation = true,
+    this.underscoreFlashes = 3,
   })  : assert(text != null, 'You must specify the list of text'),
         assert(null != speed),
         assert(null != pause),
@@ -244,7 +250,7 @@ class _TypewriterState extends State<TypewriterAnimatedTextKit>
 
     _typewriterText = StepTween(
       begin: 0,
-      end: textLen + 8,
+      end: textLen + (widget.underscoreFlashes + 1) * 2,
     ).animate(_controller)
       ..addStatusListener(_animationEndCallback);
 
